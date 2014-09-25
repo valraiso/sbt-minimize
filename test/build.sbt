@@ -4,7 +4,7 @@ lazy val root = (project in file(".")).enablePlugins(SbtWeb)
 
 JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 
-pipelineStages := Seq(minimize)
+pipelineStages in Assets := Seq(minimize)
 
 val checkFileContents = taskKey[Unit]("check that file contents are minimized")
 

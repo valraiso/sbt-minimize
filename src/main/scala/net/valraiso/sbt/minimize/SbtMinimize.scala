@@ -49,7 +49,7 @@ object SbtMinimize extends AutoPlugin {
     comments := false,
     conditionals := false,
     quotes := false,
-    minimize := runMinimizeHtml.dependsOn(WebKeys.nodeModules in Plugin).value
+    minimize := runMinimizeHtml.dependsOn(webModules in Assets).dependsOn(WebKeys.nodeModules in Assets).value
   )
 
   private def runMinimizeHtml: Def.Initialize[Task[Pipeline.Stage]] = Def.task {
@@ -96,7 +96,7 @@ object SbtMinimize extends AutoPlugin {
             state.value,
             (engineType in minimize).value,
             (command in minimize).value,
-            (nodeModuleDirectories in Assets).value.map(_.getPath),            
+            (nodeModuleDirectories in Plugin).value.map(_.getPath),            
             shellFile,
             Seq(sourceFileMappings, targetPath, jsOptions),
             (timeoutPerSource in minimize).value * minimizeMappings.size
